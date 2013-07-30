@@ -1,9 +1,15 @@
 #!/bin/bash
 
 if (( $# > 0 )); then
-	interface="$1"
+	interface="${1}"
 else
 	interface="eth0"
+fi
+
+if (( $# > 1 )); then
+	i3statusconfig="${2}"
+else
+	i3statusconfig="${XDG_CONFIG_HOME}/i3status"
 fi
 
 function human_readable()
@@ -32,7 +38,6 @@ function human_readable()
 
 function get_traffic()
 {
-	# ...by parsing /proc/net/dev
 	grep "${1}" /proc/net/dev | sed "s/.*${1}: \([0-9]\+\).*/\1/"
 }
 
@@ -40,12 +45,11 @@ traffic_old=$(get_traffic "${interface}")
 
 values=(0 0 0 0 0 0 0 0 0 0)
 
-#!/bin/bash
-i3status --config "${HOME}/.config/i3status" | while :
+max_length=10
+
+i3status --config "${i3statusconfig}" | while :
 do
 	read line
-
-	max_length=10
 
 	traffic_new=$(get_traffic "${interface}")
 

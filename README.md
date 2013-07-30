@@ -19,3 +19,14 @@ general {
 	...
 }
 ```
+
+Usage
+=====
+
+```
+network_spark.sh [interface [i3status-config]]
+```
+The script can simply be used without parameters as described above. Alternatively, you can specify
+
+* _interface_ the name of the network interface to monitor
+* _i3status-config_ the path of the i3status configuration file.
