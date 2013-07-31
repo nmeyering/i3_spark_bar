@@ -12,6 +12,12 @@ else
 	i3statusconfig="${XDG_CONFIG_HOME}/i3status"
 fi
 
+if (( $# > 2 )); then
+	delay="${3}"
+else
+	delay=1
+fi
+
 function human_readable()
 {
 	local kilo=$( echo "scale=2; $1 / 1024" | bc )
@@ -65,5 +71,5 @@ do
 	# shift values / dequeue first element
 	values=(${values[@]:1})
 
-	echo "$(human_readable ${difference}) $(spark "${values[@]}") | ${line}" || exit 1
+	echo "$(human_readable $((${difference} / ${delay}))) $(spark "${values[@]}") | ${line}" || exit 1
 done
