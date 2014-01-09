@@ -44,7 +44,7 @@ function human_readable()
 
 function get_traffic()
 {
-	grep "${1}" /proc/net/dev | sed "s/.*${1}: \([0-9]\+\).*/\1/"
+	grep "${1}" /proc/net/dev | sed "s/.*${1}:\s\+\([0-9]\+\).*/\1/"
 }
 
 traffic_old=$(get_traffic "${interface}")
