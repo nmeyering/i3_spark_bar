@@ -11,6 +11,7 @@ if (( $# > 1 )); then
 else
 	i3statusconfig="${XDG_CONFIG_HOME}/i3status"
 fi
+echo "status config found: ${i3statusconfig}"
 
 if (( $# > 2 )); then
 	delay="${3}"
@@ -53,10 +54,8 @@ values=(0 0 0 0 0 0 0 0 0 0)
 
 max_length=10
 
-i3status --config "${i3statusconfig}" | while :
+i3status --config "${i3statusconfig}" | while read line
 do
-	read line
-
 	traffic_new=$(get_traffic "${interface}")
 
 	# difference between the last two measurements is the new value
